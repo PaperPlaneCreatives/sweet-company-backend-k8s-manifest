@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sweet-company-backend-k8s-manifest-argo-application
+  namespace: argocd
+spec:
+  project: default
+  source: 
+    repoURL: https://github.com/PaperPlaneCreatives/sweet-company-backend-k8s-manifest.git
+    targetRevision: HEAD
+    path: main
+  destination:
+    server: kttps://kubernetes.default.svc
+    namespace: paper-plane-creatives-apps
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
+   
